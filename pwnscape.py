@@ -81,7 +81,6 @@ def wifi_scan():
 
 def pingr():
     clear()
-    
     cprint("input a valid web address: ", "green")
     cprint("or (back) to return to menu", "green")
     pingr_secure_chk = input("Is website using HTTPS?\n (y) HTTPS\n (n) HTTP\n(m) Return to Menu")
@@ -101,7 +100,6 @@ def pingr():
         clear()
         cprint(f"{pingr_www} is NOT VALID :)", "red")
         cprint("Please Try Again!\n")
-
     input("press ENTER to continue")
    
 
