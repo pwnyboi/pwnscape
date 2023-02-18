@@ -12,6 +12,7 @@ import platform
 import scapy.all as scapy
 from tcping import Ping
 import socket
+import validators
 
 
 
@@ -78,13 +79,29 @@ def wifi_scan():
     # the list of all results.
     arp_result = scapy.arping(ip_add_range_entered)
 
-def ping():
+def pingr():
     clear()
+    
     cprint("input a valid web address: ", "green")
     cprint("or (back) to return to menu", "green")
-    ping_www = input("Address: ")
-    print("Output:")
-    print(socket.gethostbyname(ping_www))
+    pingr_secure_chk = input("Is website using HTTPS?\n (y) HTTPS\n (n) HTTP\n(m) Return to Menu")
+    pingr_protocol_addr = ""
+    pingr_www = input("Address: ")
+    if pingr_secure_chk == "y" or pingr_secure_chk == "Y":
+        pingr_protocol_addr = "https://"
+    elif pingr_secure_chk == "n" or pingr_secure_chk == "N":
+        pingr_protocol_addr = "http://"
+
+    if validators.url(f"{pingr_protocol_addr}{pingr_www}") is True:
+        cprint(f"{pingr_www} is a VALID URL :)", "green")
+        time.sleep(.5)
+        print("\nOutput:")
+        print(socket.gethostbyname(pingr_www))
+    else:
+        clear()
+        cprint(f"{pingr_www} is NOT VALID :)", "red")
+        cprint("Please Try Again!\n")
+
     input("press ENTER to continue")
    
 
@@ -97,7 +114,7 @@ while True:
     cprint("(scan_wifi) -this tool scans wifi in a specified range", "green")
     cprint("(pwnmap) -port scanner [similar to nmap]", "blue")
     cprint("(tool 3) -to be developed", "green")
-    cprint("(ping) - use -n for windows and -c for unix", "blue")
+    cprint("(pingr) -Checks a Valid URL and displays IP Addr (IPv4)", "blue")
     cprint("(exit) -Exits the program", "red")
     menu_input = input("\nYour Selection: ")
     if menu_input == "exit":
@@ -105,4 +122,4 @@ while True:
     elif menu_input == "scan_wifi":
         wifi_scan()
     elif menu_input == "ping":
-        ping()
+        pingr()
