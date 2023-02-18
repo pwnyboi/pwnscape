@@ -79,11 +79,14 @@ def wifi_scan():
     arp_result = scapy.arping(ip_add_range_entered)
 
 def ping():
+    clear()
     cprint("input a valid web address: ", "green")
     cprint("or (back) to return to menu", "green")
     ping_www = input("Address: ")
+    print("Output:")
     print(socket.gethostbyname(ping_www))
     input("press ENTER to continue")
+   
 
 
 
