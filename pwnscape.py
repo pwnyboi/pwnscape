@@ -13,6 +13,7 @@ import scapy.all as scapy
 from tcping import Ping
 import socket
 import validators
+import hashlib
 
 
 
@@ -37,7 +38,7 @@ def banner():
     print("                                           |_|")
     print("Created by: PwnyBoi :)")
 
-def wifi_scan():
+def pwnscan():
     clear()
     cprint("Remember wifi adapter must be set to promiscuous mode...", "blue")
     time.sleep(.25)
@@ -101,23 +102,61 @@ def pingr():
         cprint(f"{pingr_www} is NOT VALID :)", "red")
         cprint("Please Try Again!\n")
     input("press ENTER to continue")
-   
 
-
+def pwnhash():
+    clear()
+    print(" ____                   _   _           _     ")
+    print("|  _ \__      ___ __   | | | | __ _ ___| |__  ")
+    print("| |_) \ \ /\ / / '_ \  | |_| |/ _` / __| '_ \ ")
+    print("|  __/ \ V  V /| | | | |  _  | (_| \__ \ | | |")
+    print("|_|     \_/\_/ |_| |_| |_| |_|\__,_|___/_| |_|")
+    while True:
+        cprint("Main Menu", "green")
+        cprint("(input) -sets the hash value", "green")
+        cprint("(hashr) -provides all the hash values for hash.txt", "blue")
+        cprint("(back) -back to main menu", "red")
+        menu_input = input("\nYour Selection: ")
+        if menu_input == "input":
+            print("selected [input]")
+        elif menu_input == "hashr":
+           filename = input("Enter the input file name: ")
+           sha256_hash = hashlib.sha256()
+           with open(filename, "rb") as f:
+               for byte_block in iter(lambda: f.read(4096),b""):
+                   sha256_hash.update(byte_block)
+                   print(byte_block)
+                   print(sha256_hash.hexdigest())
+        elif menu_input == "pingr":
+            continue
+        elif menu_input == "pwnhash":
+            continue
+        elif menu_input == "back" or menu_input == "exit":
+            break           
+        else:
+            cprint("invalid option! Try again", "red")
+            input("press ENTER to continue...")
+            break
 
 while True:
     clear()
     banner()
     cprint("Main Menu", "green")
-    cprint("(scan_wifi) -this tool scans wifi in a specified range", "green")
+    cprint("(pwnscan) -this tool scans wifi in a specified range", "green")
     cprint("(pwnmap) -port scanner [similar to nmap]", "blue")
-    cprint("(tool 3) -to be developed", "green")
+    cprint("(pwnhash) -to be developed", "green")
     cprint("(pingr) -Checks a Valid URL and displays IP Addr (IPv4)", "blue")
     cprint("(exit) -Exits the program", "red")
     menu_input = input("\nYour Selection: ")
     if menu_input == "exit":
         exit()
-    elif menu_input == "scan_wifi":
-        wifi_scan()
-    elif menu_input == "ping":
+    elif menu_input == "pwnscan":
+        pwnscan
+    elif menu_input == "pingr":
         pingr()
+    elif menu_input == "pwnhash":
+        pwnhash()
+
+
+#modules = os.getcwd()
+#for module in modules:
+#    print(module)
